@@ -11,7 +11,9 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@500;700;800;900&family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
-<sty    --bg: #0a0c10;
+<style>
+  :root{
+    --bg: #0a0c10;
     --bg-alt: #11151c;
     --card: #181d27;
     --card-border: #252d3d;
@@ -410,7 +412,6 @@
     <text x="50" y="62" font-size="34" text-anchor="middle" fill="#8a5c15" font-family="Cairo, sans-serif" font-weight="900">$</text>
   </svg>`;
 
-  // priceUsd هو الرقم الفعلي يلي رح ينرسل لسيرفر الدفع (NOWPayments) — خليه مطابق للسعر المعروض
   const packages = [
     { name: "الفئة الأولى",   amount: "120,000",   price: "$10",  priceUsd: 10  },
     { name: "الفئة الثانية",  amount: "250,000",   price: "$20",  priceUsd: 20  },
@@ -451,8 +452,7 @@
     openForm();
   }
 
-  // غيّر هاد الرابط لرابط سيرفرك الحقيقي بعد الرفع (main.py المرتبط بـ NOWPayments)
-  const BACKEND_URL = "https://your-backend-domain.example.com";
+  const BACKEND_URL = "https://shop-q907.onrender.com";
 
   let currentOrder = null;
 
@@ -557,40 +557,15 @@
       if(!res.ok || !result.payment_url){
         throw new Error(result.error || 'فشل إنشاء رابط الدفع');
       }
-      // تحويل المستخدم مباشرة لصفحة الدفع الحقيقية (NOWPayments)
       window.location.href = result.payment_url;
     } catch(err){
       showError('صار في مشكلة بإنشاء الطلب: ' + err.message);
-
-      ratingInput.focus();
-      return;
-    }
-    ratingInput.classList.remove('invalid');
-    ratingError.classList.remove('show');
-    ratingSubmitBtn.disabled = true;
-    ratingSubmitBtn.textContent = 'جارِ التأكيد...';
-    try{
-      const res = await fetch(`${BACKEND_URL}/api/rating`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ order_id: currentOrderId, rating: valueStr }),
-      });
-      if(!res.ok){
-        ratingError.textContent = 'حصل خطأ، يرجى المحاولة مرة أخرى';
-        ratingError.classList.add('show');
-        ratingSubmitBtn.disabled = false;
-        ratingSubmitBtn.textContent = 'تأكيد';
-        return;
-      }
-      closeRatingModal();
-    } catch(err){
-      ratingError.textContent = 'تعذر الاتصال بالسيرفر، حاول مجدداً';
-      ratingError.classList.add('show');
-      ratingSubmitBtn.disabled = false;
-      ratingSubmitBtn.textContent = 'تأكيد';
     }
   });
 </script>
 
 </body>
 </html>
+```[cite: 2, 9]
+
+ارفعه إلى مستودع الواجهة وأعد النشر، ثم حدّث الصفحة بـ `Ctrl + F5`[cite: 2, 8, 9].
